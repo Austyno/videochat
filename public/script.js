@@ -1,4 +1,5 @@
-const socket = io('/');
+// const socket = io('/');
+const socket = io.connect('http://3.21.28.175', { transports: ['websocket'] })
 
 const videoGrid = document.getElementById('video-grid');
 
@@ -54,8 +55,9 @@ function addVideoStream(video, stream) {
 }
 
 function connectToNewUser(userId, stream) {
-    const call = myPeer.call(userId, stream);
     const video = document.createElement('video');
+
+    const call = myPeer.call(userId, stream);
 
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream);
